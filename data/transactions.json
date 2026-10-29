@@ -1,0 +1,20 @@
+[
+    {
+        "id": "TXN-20260922-19BB8779",
+        "refSeed": "2995259067372",
+        "type": "send",
+        "amountCents": 50000,
+        "currency": "MYR",
+        "region": "maybank",
+        "recipient": "zharif",
+        "note": "QR payment",
+        "method": "",
+        "billType": "",
+        "account": "",
+        "senderEmail": "zharifeirfan46@gmail.com",
+        "status": "APPROVED",
+        "dateISO": "2026-09-22T03:56:47.000Z",
+        "decidedAt": "2026-09-22T03:57:42.000Z",
+        "decidedBy": "admin"
+    }
+]

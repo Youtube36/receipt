@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SecurePay // Field Operations Terminal</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="sys-ticker" aria-hidden="true"><span>/// SECURE CHANNEL ESTABLISHED /// ALL TRANSACTIONS MONITORED /// CLEARANCE LEVEL 3 REQUIRED /// UNAUTHORIZED ACCESS WILL BE TRACED /// CONTROL PANEL UPLINK ACTIVE ///</span></div>
+    <div id="bootOverlay" aria-hidden="true">
+        <div class="boot-box">
+            <div class="boot-logo">SECUREPAY // FIELD TERMINAL v3.7</div>
+            <div class="boot-lines">
+                <p><span>&gt;</span> verifying identity <i>..... OK</i></p>
+                <p><span>&gt;</span> decrypting wallet vault <i>..... OK</i></p>
+                <p><span>&gt;</span> uplink to control panel <i>..... OK</i></p>
+                <p><span>&gt;</span> tracing counter-intrusion grid <i>..... OK</i></p>
+            </div>
+            <div class="boot-bar"><div></div></div>
+            <div class="boot-granted">ACCESS GRANTED — WELCOME, AGENT</div>
+        </div>
+    </div>
+    <!-- Login Page -->
+    <div class="container" id="loginPage">
+        <div class="header">
+            <div class="logo">
+                <i class="fas fa-wallet"></i>
+                <h1>SecurePay</h1>
+            </div>
+            <div class="hud-class">TOP SECRET // EYES ONLY</div>
+        </div>
+        
+        <div class="login-content">
+            <h2>Welcome Back, Agent</h2>
+            <p>Identity verification required // Clearance Level 3</p>
+            
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" placeholder="Enter your email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" placeholder="Enter your password" required>
+                </div>
+                
+                <button type="submit" class="btn btn-primary">Sign In</button>
+            </form>
+            
+            <div class="login-footer">
+                <a href="#" id="forgotPassword">Forgot Password?</a>
+                <p>Don't have an account? <a href="#" id="showRegister">Sign Up</a></p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Register Page -->
+    <div class="container" id="registerPage" style="display: none;">
+        <div class="header">
+            <div class="logo">
+                <i class="fas fa-user-plus"></i>
+                <h1>SecurePay</h1>
+            </div>
+        </div>
+        
+        <div class="login-content">
+            <h2>Create Account</h2>
+            <p>Join our secure payment network</p>
+            
+            <form id="registerForm">
+                <div class="form-group">
+                    <label for="regName">Full Name</label>
+                    <input type="text" id="regName" placeholder="Enter your full name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="regEmail">Email</label>
+                    <input type="email" id="regEmail" placeholder="Enter your email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="regPassword">Password</label>
+                    <input type="password" id="regPassword" placeholder="Create a password" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="regConfirmPassword">Confirm Password</label>
+                    <input type="password" id="regConfirmPassword" placeholder="Confirm your password" required>
+                </div>
+                
+                <button type="submit" class="btn btn-primary">Create Account</button>
+            </form>
+            
+            <div class="login-footer">
+                <p>Already have an account? <a href="#" id="showLogin">Sign In</a></p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Wallet Dashboard -->
+    <div class="container" id="walletPage" style="display: none;">
+        <div class="header">
+            <div class="logo">
+                <i class="fas fa-wallet"></i>
+                <h1>SecurePay</h1>
+            </div>
+            <div class="hud-status"><span class="hud-dot"></span>SECURE UPLINK // FIELD OPERATIONS</div>
+            <div class="balance">
+                Balance: <span>$1,000.00</span>
+            </div>
+        </div>
+        
+        <div class="main-content">
+            <div class="transfer-section">
+                <h2>Transfer Money</h2>
+                <p>Send money to other users instantly</p>
+                
+                <div class="transfer-form">
+                    <div class="form-group">
+                        <label for="recipient">Recipient</label>
+                        <input type="text" id="recipient" placeholder="Enter recipient name or email">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="amount">Amount ($)</label>
+                        <input type="number" id="amount" placeholder="Enter amount" min="0.01" step="0.01">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="note">Note (Optional)</label>
+                        <textarea id="note" placeholder="Add a note..."></textarea>
+                    </div>
+                    
+                    <button class="btn btn-primary" id="sendMoneyBtn">Send Money</button>
+                </div>
+            </div>
+            
+            <div class="quick-actions">
+                <h3>Quick Actions</h3>
+                <div class="form-group">
+                    <label for="regionSelect">Receipt region / template</label>
+                    <select id="regionSelect" class="select">
+                        <option value="maybank">Malaysia — Maybank (Melayu/English)</option>
+                        <option value="japan">Jepun — Bank Jepun (日本語)</option>
+                        <option value="us">Amerika — Bank of America (English)</option>
+                        <option value="eu">Eropah — Eurobank (English)</option>
+                        <option value="generic">Generik / Lain-lain</option>
+                    </select>
+                </div>
+                <div class="action-buttons">
+                    <button class="btn btn-action" id="requestMoneyBtn">
+                        <i class="fas fa-hand-holding-usd"></i> Request
+                    </button>
+                    <button class="btn btn-action" id="topUpBtn">
+                        <i class="fas fa-plus-circle"></i> Top Up
+                    </button>
+                    <button class="btn btn-action" id="payBillsBtn">
+                        <i class="fas fa-file-invoice-dollar"></i> Pay Bills
+                    </button>
+                    <button class="btn btn-action" id="splitBillBtn">
+                        <i class="fas fa-users"></i> Split Bill
+                    </button>
+                    <button class="btn btn-action" id="qrPayBtn">
+                        <i class="fas fa-qrcode"></i> QR Pay
+                    </button>
+                </div>
+            </div>
+            
+            <div class="wallet-features">
+                <h3>Wallet Features</h3>
+                <div class="feature-buttons">
+                    <button class="btn btn-feature" id="savingsBtn">
+                        <i class="fas fa-piggy-bank"></i> Savings
+                    </button>
+                    <button class="btn btn-feature" id="rewardsBtn">
+                        <i class="fas fa-gift"></i> Rewards
+                    </button>
+                    <button class="btn btn-feature" id="budgetBtn">
+                        <i class="fas fa-chart-pie"></i> Budget
+                    </button>
+                    <button class="btn btn-feature" id="investmentsBtn">
+                        <i class="fas fa-chart-line"></i> Investments
+                    </button>
+                    <button class="btn btn-feature" id="loansBtn">
+                        <i class="fas fa-money-bill-wave"></i> Loans
+                    </button>
+                    <button class="btn btn-feature" id="insuranceBtn">
+                        <i class="fas fa-shield-alt"></i> Insurance
+                    </button>
+                    <button class="btn btn-feature" id="splitBillFeatureBtn">
+                        <i class="fas fa-users"></i> Split Bill
+                    </button>
+                    <button class="btn btn-feature" id="qrPayFeatureBtn">
+                        <i class="fas fa-qrcode"></i> QR Pay
+                    </button>
+                </div>
+            </div>
+            
+            <div class="recent-transfers">
+                <h3><i class="fas fa-history"></i> Recent Transactions</h3>
+                
+                <div id="transactionList">
+                    <div class="no-transactions">
+                        <p>No transactions yet. Your transactions will appear here.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="security-section">
+                <h3>Security</h3>
+                <div class="security-options">
+                    <div class="security-item">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Two-Factor Authentication</span>
+                        <button class="btn btn-sm">Enable</button>
+                    </div>
+                    <div class="security-item">
+                        <i class="fas fa-lock"></i>
+                        <span>Biometric Login</span>
+                        <button class="btn btn-sm">Enable</button>
+                    </div>
+                    <div class="security-item">
+                        <i class="fas fa-bell"></i>
+                        <span>Transaction Alerts</span>
+                        <button class="btn btn-sm">Enable</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Request Money Page -->
+    <div class="container" id="requestPage" style="display: none;">
+        <div class="header">
+            <div class="logo">
+                <i class="fas fa-hand-holding-usd"></i>
+                <h1>Request Money</h1>
+            </div>
+        </div>
+        
+        <div class="main-content">
+            <div class="request-form">
+                <div class="form-group">
+                    <label for="requestRecipient">Request From</label>
+                    <input type="text" id="requestRecipient" placeholder="Enter recipient name or email">
+                </div>
+                
+                <div class="form-group">
+                    <label for="requestAmount">Amount ($)</label>
+                    <input type="number" id="requestAmount" placeholder="Enter amount" min="0.01" step="0.01">
+                </div>
+                
+                <div class="form-group">
+                    <label for="requestNote">Note (Optional)</label>
+                    <textarea id="requestNote" placeholder="Add a note..."></textarea>
+                </div>
+                
+                <button class="btn btn-primary" id="sendRequestBtn">Send Request</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Top Up Page -->
+    <div class="container" id="topUpPage" style="display: none;">
+        <div class="header">
+            <div class="logo">
+                <i class="fas fa-plus-circle"></i>
+                <h1>Top Up</h1>
+            </div>
+        </div>
+        
+        <div class="main-content">
+            <div class="top-up-form">
+                <div class="form-group">
+                    <label for="topUpAmount">Amount ($)</label>
+                    <input type="number" id="topUpAmount" placeholder="Enter amount" min="0.01" step="0.01">
+                </div>
+                
+                <div class="payment-methods">
+                    <h4>Select Payment Method</h4>
+                    <div class="method-option">
+                        <input type="radio" id="card" name="paymentMethod" value="card" checked>
+                        <label for="card">Credit/Debit Card</label>
+                    </div>
+                    <div class="method-option">
+                        <input type="radio" id="bank" name="paymentMethod" value="bank">
+                        <label for="bank">Bank Transfer</label>
+                    </div>
+                    <div class="method-option">
+                        <input type="radio" id="paypal" name="paymentMethod" value="paypal">
+                        <label for="paypal">PayPal</label>
+                    </div>
+                    <div class="method-option">
+                        <input type="radio" id="crypto" name="paymentMethod" value="crypto">
+                        <label for="crypto">Cryptocurrency</label>
+                    </div>
+                </div>
+                
+                <button class="btn btn-primary" id="topUpConfirmBtn">Add Funds</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Pay Bills Page -->
+    <div class="container" id="payBillsPage" style="display: none;">
+        <div class="header">
+            <div class="logo">
+                <i class="fas fa-file-invoice-dollar"></i>
+                <h1>Pay Bills</h1>
+            </div>
+        </div>
+        
+        <div class="main-content">
+            <div class="bills-form">
+                <div class="form-group">
+                    <label for="billType">Bill Type</label>
+                    <select id="billType" class="select">
+                        <option value="">Select Bill Type</option>
+                        <option value="electricity">Electricity</option>
+                        <option value="water">Water</option>
+                        <option value="gas">Gas</option>
+                        <option value="internet">Internet</option>
+                        <option value="phone">Phone</option>
+                        <option value="insurance">Insurance</option>
+                        <option value="rent">Rent</option>
+                        <option value="loan">Loan Payment</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="billAmount">Amount ($)</label>
+                    <input type="number" id="billAmount" placeholder="Enter amount" min="0.01" step="0.01">
+                </div>
+                
+                <div class="form-group">
+                    <label for="billAccount">Account Number</label>
+                    <input type="text" id="billAccount" placeholder="Enter account number">
+                </div>
+                
+                <button class="btn btn-primary" id="payBillBtn">Pay Bill</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Savings Page -->
+    <div class="container" id="savingsPage" style="display: none;">
+        <div class="header">
+            <div class="logo">
+                <i class="fas fa-piggy-bank"></i>
+                <h1>Savings</h1>
+            </div>
+        </div>
+        
+        <div class="main-content">
+            <div class="savings-info">
+                <h3>Current Savings: $0.00</h3>
+                <p>Save money automatically with our savings goals</p>
+                
+                <div class="savings-goal">
+                    <div class="form-group">
+                        <label for="savingsGoal">Savings Goal</label>
+                        <input type="text" id="savingsGoal" placeholder="Goal name (e.g. Vacation)">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="savingsAmount">Amount ($)</label>
+                        <input type="number" id="savingsAmount" placeholder="Enter amount" min="0.01" step="0.01">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="savingsDate">Target Date</label>
+                        <input type="date" id="savingsDate">
+                    </div>
+                    
+                    <button class="btn btn-primary" id="createSavingsBtn">Create Goal</button>
+                </div>
+                
+                <div class="savings-list">
+                    <h4>Your Goals</h4>
+                    <div class="savings-item">
+                        <div class="savings-progress">
+                            <div class="savings-bar">
+                                <div class="savings-fill" style="width: 30%;"></div>
+                            </div>
+                            <div class="savings-text">
+                                <span>Vacation</span>
+                                <span>$300 / $1000</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="savings-item">
+                        <div class="savings-progress">
+                            <div class="savings-bar">
+                                <div class="savings-fill" style="width: 65%;"></div>
+                            </div>
+                            <div class="savings-text">
+                                <span>Emergency Fund</span>
+                                <span>$650 / $1000</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Rewards Page -->
+    <div class="container" id="rewardsPage" style="display: none;">
+        <div class="header">
+            <div class="logo">
+                <i class="fas fa-gift"></i>
+                <h1>Rewards</h1>
+            </div>
+        </div>
+        
+        <div class="main-content">
+            <div class="rewards-info">
+                <h3>Your Rewards</h3>
+                <p>Current Points: <span id="rewardPoints">0</span></p>
+                
+                <div class="rewards-list">
+                    <div class="reward-item">
+                        <i class="fas fa-percentage"></i>
+                        <div class="reward-details">
+                            <h4>10% Cashback</h4>
+                            <p>On grocery purchases</p>
+                        </div>
+                    </div>
+                    
+                    <div class="reward-item">
+                        <i class="fas fa-gift"></i>
+                        <div class="reward-details">
+                            <h4>$5 Bonus</h4>
+                            <p>For new users</p>
+                        </div>
+                    </div>
+                    
+                    <div class="reward-item">
+                        <i class="fas fa-coins"></i>
+                        <div class="reward-details">
+                            <h4>5% Interest</h4>
+                            <p>On savings account</p>
+                        </div>
+                    </div>
+                    
+                    <div class="reward-item">
+                        <i class="fas fa-percentage"></i>
+                        <div class="reward-details">
+                            <h4>2% Cashback</h4>
+                            <p>On all purchases</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="rewards-history">
+                    <h4>Recent Rewards</h4>
+                    <div class="reward-history-item">
+                        <span>+50 points</span>
+                        <span>Shopping</span>
+                        <span>Today</span>
+                    </div>
+                    <div class="reward-history-item">
+                        <span>+25 points</span>
+                        <span>Bill Payment</span>
+                        <span>Yesterday</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Budget Page -->
+    <div class="container" id="budgetPage" style="display: none;">
+        <div class="header">
+            <div class="logo">
+                <i class="fas fa-chart-pie"></i>
+                <h1>Budget</h1>
+            </div>
+        </div>
+        
+        <div class="main-content">
+            <div class="budget-info">
+                <h3>Monthly Budget</h3>
+                <p>Set and track your spending</p>
+                
+                <div class="budget-form">
+                    <div class="form-group">
+                        <label for="budgetCategory">Category</label>
+                        <select id="budgetCategory" class="select">
+                            <option value="">Select Category</option>
+                            <option value="food">Food & Dining</option>
+                            <option value="transport">Transportation</option>
+                            <option value="shopping">Shopping</option>
+                            <option value="entertainment">Entertainment</option>
+                            <option value="bills">Bills & Utilities</option>
+                            <option value="health">Health</option>
+                            <option value="education">Education</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="budgetAmount">Amount ($)</label>
+                        <input type="number" id="budgetAmount" placeholder="Enter amount" min="0.01" step="0.01">
+                    </div>
+                    
+                    <button class="btn btn-primary" id="setBudgetBtn">Set Budget</button>
+                </div>
+                
+                <div class="budget-list">
+                    <h4>Current Budgets</h4>
+                    <div class="budget-item">
+                        <span>Food & Dining</span>
+                        <span>$200.00</span>
+                        <div class="budget-progress">
+                            <div class="budget-bar">
+                                <div class="budget-fill" style="width: 75%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="budget-item">
+                        <span>Transportation</span>
+                        <span>$100.00</span>
+                        <div class="budget-progress">
+                            <div class="budget-bar">
+                                <div class="budget-fill" style="width: 45%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="budget-item">
+                        <span>Entertainment</span>
+                        <span>$150.00</span>
+                        <div class="budget-progress">
+                            <div class="budget-bar">
+                                <div class="budget-fill" style="width: 20%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Investments Page -->
+    <div class="container" id="investmentsPage" style="display: none;">
+        <div class="header">
+            <div class="logo">
+                <i class="fas fa-chart-line"></i>
+                <h1>Investments</h1>
+            </div>
+        </div>
+        
+        <div class="main-content">
+            <div class="investments-info">
+                <h3>Total Investment: $0.00</h3>
+                <p>Grow your wealth with smart investments</p>
+                
+                <div class="investment-options">
+                    <div class="investment-option">
+                        <h4>Stocks</h4>
+                        <p>Invest in individual companies</p>
+                        <button class="btn btn-sm">Invest Now</button>
+                    </div>
+                    <div class="investment-option">
+                        <h4>Bonds</h4>
+                        <p>Stable fixed-income investments</p>
+                        <button class="btn btn-sm">Invest Now</button>
+                    </div>
+                    <div class="investment-option">
+                        <h4>Mutual Funds</h4>
+                        <p>Diversified investment portfolios</p>
+                        <button class="btn btn-sm">Invest Now</button>
+                    </div>
+                    <div class="investment-option">
+                        <h4>ETFs</h4>
+                        <p>Exchange-traded funds</p>
+                        <button class="btn btn-sm">Invest Now</button>
+                    </div>
+                </div>
+                
+                <div class="investment-history">
+                    <h4>Recent Investments</h4>
+                    <div class="investment-item">
+                        <span>$500</span>
+                        <span>Apple Stocks</span>
+                        <span>Today</span>
+                    </div>
+                    <div class="investment-item">
+                        <span>$300</span>
+                        <span>Tech Mutual Fund</span>
+                        <span>Yesterday</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Loans Page -->
+    <div class="container" id="loansPage" style="display: none;">
+        <div class="header">
+            <div class="logo">
+                <i class="fas fa-money-bill-wave"></i>
+                <h1>Loans</h1>
+            </div>
+        </div>
+        
+        <div class="main-content">
+            <div class="loans-info">
+                <h3>Loan Options</h3>
+                <p>Get the funds you need with competitive rates</p>
+                
+                <div class="loan-options">
+                    <div class="loan-option">
+                        <h4>Personal Loan</h4>
+                        <p>Flexible financing for personal needs</p>
+                        <p>Interest: 8.5%</p>
+                        <button class="btn btn-sm">Apply Now</button>
+                    </div>
+                    <div class="loan-option">
+                        <h4>Business Loan</h4>
+                        <p>Funding for business growth</p>
+                        <p>Interest: 7.2%</p>
+                        <button class="btn btn-sm">Apply Now</button>
+                    </div>
+                    <div class="loan-option">
+                        <h4>Education Loan</h4>
+                        <p>Finance your education</p>
+                        <p>Interest: 5.8%</p>
+                        <button class="btn btn-sm">Apply Now</button>
+                    </div>
+                </div>
+                
+                <div class="loan-history">
+                    <h4>Loan History</h4>
+                    <div class="loan-item">
+                        <span>Personal Loan</span>
+                        <span>$2,000</span>
+                        <span>Active</span>
+                    </div>
+                    <div class="loan-item">
+                        <span>Education Loan</span>
+                        <span>$10,000</span>
+                        <span>Paid</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Insurance Page -->
+    <div class="container" id="insurancePage" style="display: none;">
+        <div class="header">
+            <div class="logo">
+                <i class="fas fa-shield-alt"></i>
+                <h1>Insurance</h1>
+            </div>
+        </div>
+        
+        <div class="main-content">
+            <div class="insurance-info">
+                <h3>Insurance Plans</h3>
+                <p>Protect yourself and your loved ones</p>
+                
+                <div class="insurance-options">
+                    <div class="insurance-option">
+                        <h4>Health Insurance</h4>
+                        <p>Comprehensive medical coverage</p>
+                        <p>Starting at $150/month</p>
+                        <button class="btn btn-sm">Get Quote</button>
+                    </div>
+                    <div class="insurance-option">
+                        <h4>Life Insurance</h4>
+                        <p>Financial protection for your family</p>
+                        <p>Starting at $50/month</p>
+                        <button class="btn btn-sm">Get Quote</button>
+                    </div>
+                    <div class="insurance-option">
+                        <h4>Car Insurance</h4>
+                        <p>Protection for your vehicle</p>
+                        <p>Starting at $80/month</p>
+                        <button class="btn btn-sm">Get Quote</button>
+                    </div>
+                </div>
+                
+                <div class="insurance-history">
+                    <h4>Active Policies</h4>
+                    <div class="insurance-item">
+                        <span>Health Insurance</span>
+                        <span>$150/month</span>
+                        <span>Active</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Split Bill Page -->
+    <div class="container" id="splitBillPage" style="display: none;">
+        <div class="header">
+            <div class="logo">
+                <i class="fas fa-users"></i>
+                <h1>Split Bill</h1>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="split-form">
+                <div class="form-group">
+                    <label for="splitTitle">Bill Title</label>
+                    <input type="text" id="splitTitle" placeholder="e.g. Dinner at KLCC" maxlength="120">
+                </div>
+
+                <div class="form-group">
+                    <label for="splitTotal">Total Amount (<span class="split-cur">—</span>)</label>
+                    <input type="number" id="splitTotal" placeholder="Enter total amount" min="0.01" step="0.01">
+                </div>
+
+                <div class="form-group">
+                    <label for="splitMode">Split Mode</label>
+                    <select id="splitMode" class="select">
+                        <option value="equal">Split equally</option>
+                        <option value="custom">Custom amounts</option>
+                    </select>
+                </div>
+
+                <div class="split-members-head">
+                    <h4>Participants <span id="splitCount" class="split-count">2</span></h4>
+                    <button class="btn btn-sm" id="splitAddBtn" type="button"><i class="fas fa-plus"></i> Add</button>
+                </div>
+                <div id="splitMembers"></div>
+
+                <div id="splitSummary" class="split-summary">
+                    <div class="split-sum-row"><span>Per person</span><strong id="splitPerPerson">—</strong></div>
+                    <div class="split-sum-row"><span>Assigned total</span><strong id="splitAssigned">—</strong></div>
+                    <div class="split-sum-row"><span>Difference</span><strong id="splitDiff">—</strong></div>
+                    <p id="splitHint" class="split-hint"></p>
+                </div>
+
+                <button class="btn btn-primary" id="splitCalcBtn" type="button">Calculate</button>
+                <button class="btn btn-primary split-send" id="splitSendBtn" type="button"><i class="fas fa-paper-plane"></i> Send Requests</button>
+                <div class="split-foot">
+                    <button class="btn btn-secondary" id="splitClearBtn" type="button">Clear</button>
+                    <button class="btn btn-secondary" id="splitBackBtn" type="button">Back to Wallet</button>
+                </div>
+                <p class="split-note">Each participant gets a fund request (type: request) with note Split "title". Pending approval flow sama seperti Request biasa.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- QR Pay Page -->
+    <div class="container" id="qrPayPage" style="display: none;">
+        <div class="header">
+            <div class="logo">
+                <i class="fas fa-qrcode"></i>
+                <h1>QR Pay</h1>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="qr-tabs">
+                <button class="qr-tab active" id="qrTabGen" type="button"><i class="fas fa-qrcode"></i> My QR</button>
+                <button class="qr-tab" id="qrTabScan" type="button"><i class="fas fa-camera"></i> Scan &amp; Pay</button>
+            </div>
+
+            <!-- Generate tab -->
+            <div id="qrGenPane" class="qr-pane">
+                <div class="form-group">
+                    <label for="qrName">Receive As (name / email)</label>
+                    <input type="text" id="qrName" placeholder="e.g. agent@securepay.example" maxlength="120">
+                </div>
+                <div class="form-group">
+                    <label for="qrAmount">Amount (<span class="split-cur">—</span>)</label>
+                    <input type="number" id="qrAmount" placeholder="Enter amount (optional for open QR)" min="0.01" step="0.01">
+                </div>
+                <div class="form-group">
+                    <label for="qrNote">Note (Optional)</label>
+                    <input type="text" id="qrNote" placeholder="e.g. Nasi lemak hutang" maxlength="140">
+                </div>
+                <button class="btn btn-primary" id="qrGenBtn" type="button">Generate QR</button>
+                <div id="qrOut" class="qr-out" style="display:none;">
+                    <div id="qrBox" class="qr-box"></div>
+                    <img id="qrImgFallback" class="qr-img" alt="QR code" style="display:none;">
+                    <p id="qrPayloadText" class="qr-payload"></p>
+                    <div class="qr-out-row">
+                        <button class="btn btn-sm" id="qrDownloadBtn" type="button">Download</button>
+                        <button class="btn btn-sm" id="qrCopyBtn" type="button">Copy Code</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Scan tab -->
+            <div id="qrScanPane" class="qr-pane" style="display:none;">
+                <div id="qrReader" class="qr-reader"></div>
+                <div class="qr-scan-row">
+                    <button class="btn btn-sm" id="qrStartCamBtn" type="button"><i class="fas fa-camera"></i> Start Camera</button>
+                    <button class="btn btn-sm" id="qrStopCamBtn" type="button">Stop</button>
+                    <label class="btn btn-sm qr-file" for="qrFileInput"><i class="fas fa-image"></i> Upload Image</label>
+                    <input type="file" id="qrFileInput" accept="image/*" style="display:none;">
+                </div>
+                <div class="form-group">
+                    <label for="qrPaste">Or paste QR code text</label>
+                    <textarea id="qrPaste" placeholder='Paste code e.g. SECUREPAY1|agent@mail.com|2500|MYR|Dinner'></textarea>
+                </div>
+                <button class="btn btn-primary" id="qrParseBtn" type="button">Parse Code</button>
+                <div id="qrParsed" class="qr-parsed" style="display:none;">
+                    <div class="qr-parsed-row"><span>To</span><strong id="qrPTo">—</strong></div>
+                    <div class="qr-parsed-row"><span>Amount</span><strong id="qrPAmt">—</strong></div>
+                    <div class="qr-parsed-row"><span>Note</span><strong id="qrPNote">—</strong></div>
+                    <button class="btn btn-primary" id="qrPayNowBtn" type="button"><i class="fas fa-paper-plane"></i> Pay Now</button>
+                </div>
+                <p class="split-note">Camera scan needs HTTPS/localhost + camera permission. Upload &amp; paste always work.</p>
+            </div>
+
+            <div class="split-foot">
+                <button class="btn btn-secondary" id="qrBackBtn" type="button">Back to Wallet</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Dashboard -->
+    <div class="container" id="adminPage" style="display: none;">
+        <div class="header">
+            <div class="logo">
+                <i class="fas fa-crown"></i>
+                <h1>Admin Dashboard</h1>
+            </div>
+        </div>
+        
+        <div class="admin-content">
+            <div class="admin-stats">
+                <div class="stat-card">
+                    <i class="fas fa-users"></i>
+                    <h3>1,248</h3>
+                    <p>Users</p>
+                </div>
+                
+                <div class="stat-card">
+                    <i class="fas fa-exchange-alt"></i>
+                    <h3>$2.4M</h3>
+                    <p>Transactions</p>
+                </div>
+                
+                <div class="stat-card">
+                    <i class="fas fa-wallet"></i>
+                    <h3>$5.6M</h3>
+                    <p>Balance</p>
+                </div>
+                
+                <div class="stat-card">
+                    <i class="fas fa-chart-line"></i>
+                    <h3>24.5%</h3>
+                    <p>Growth</p>
+                </div>
+            </div>
+            
+            <div class="admin-section">
+                <h3>Special Users</h3>
+                <div class="special-users">
+                    <div class="user-card">
+                        <div class="user-avatar">VP</div>
+                        <div class="user-details">
+                            <h4>VIP Member</h4>
+                            <p>premium@example.com</p>
+                        </div>
+                    </div>
+                    
+                    <div class="user-card">
+                        <div class="user-avatar">P</div>
+                        <div class="user-details">
+                            <h4>Partner</h4>
+                            <p>partner@example.com</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="admin-section">
+                <h3>Recent Activity</h3>
+                <div class="activity-list">
+                    <div class="activity-item">
+                        <i class="fas fa-user-plus"></i>
+                        <div class="activity-details">
+                            <h4>New User Registration</h4>
+                            <p>john.doe@example.com</p>
+                            <p>2 minutes ago</p>
+                        </div>
+                    </div>
+                    
+                    <div class="activity-item">
+                        <i class="fas fa-exchange-alt"></i>
+                        <div class="activity-details">
+                            <h4>Transaction Completed</h4>
+                            <p>$250.00 sent</p>
+                            <p>15 minutes ago</p>
+                        </div>
+                    </div>
+                    
+                    <div class="activity-item">
+                        <i class="fas fa-shield-alt"></i>
+                        <div class="activity-details">
+                            <h4>Security Alert</h4>
+                            <p>Unusual login activity</p>
+                            <p>1 hour ago</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="admin-actions">
+                <button class="btn btn-primary" id="adminLogout">Logout</button>
+                <button class="btn btn-secondary" id="adminToWallet">User Dashboard</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bank Receipt Modal (Maybank / Japan / US / EU templates) -->
+    <div id="receiptModal" class="receipt-modal" style="display: none;">
+        <div class="receipt-dialog">
+            <div class="receipt-toolbar">
+                <div class="form-group" style="margin:0;flex:1;">
+                    <label for="receiptRegion">Receipt template</label>
+                    <select id="receiptRegion" class="select">
+                        <option value="maybank">Malaysia — Maybank (Melayu/English)</option>
+                        <option value="japan">Jepun — Bank Jepun (日本語)</option>
+                        <option value="us">Amerika — Bank of America (English)</option>
+                        <option value="eu">Eropah — Eurobank (English)</option>
+                        <option value="generic">Generik / Lain-lain</option>
+                    </select>
+                </div>
+                <button class="btn btn-sm" id="receiptPrint">Print</button>
+                <button class="btn btn-sm" id="receiptDownload">Download</button>
+                <button class="btn btn-sm" id="receiptClose">Close</button>
+            </div>
+            <div id="receiptContent" class="receipt-print-area"></div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
+    <script src="receipts.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+[
+    {
+        "at": "2026-09-22T03:57:33Z",
+        "by": "admin",
+        "event": "LOGIN",
+        "detail": "Log masuk panel berjaya."
+    },
+    {
+        "at": "2026-09-22T03:57:42Z",
+        "by": "admin",
+        "event": "APPROVE",
+        "detail": "TXN-20260922-19BB8779 · MYBK-2995259067372"
+    }
+]
